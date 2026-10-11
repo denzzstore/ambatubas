@@ -1,0 +1,2 @@
+# ambatubas
+Omagad ambatenat
