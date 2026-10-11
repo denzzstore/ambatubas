@@ -4,36 +4,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RicoTV</title>
+  <title>Anime Surprise</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background: #101010;
+      background: #100817;
       color: white;
       font-family: Arial, sans-serif;
-      display: grid;
-      place-items: center;
+      text-align: center;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #ff65ce;
+      text-shadow: 0 0 15px #ff1493;
+    }
+
+    .anime {
+      width: min(100%, 360px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px #a020f0;
+    }
+
+    p {
+      color: #e5c9ef;
+    }
+
+    #status {
+      font-size: 14px;
     }
   </style>
 </head>
-<body>
-  <h2>RicoTV</h2>
 
-  <audio id="audio" preload="auto">
-    <source
-      src="https://mp3tourl.com/audio/1791708116822-f1020f65-6ff7-497f-8984-164a89f6749d.mp3"
-      type="audio/mpeg">
-  </audio>
+<body>
+  <main class="page">
+    <h1>✨ Anime Surprise ✨</h1>
+
+    <!-- Ilustrasi anime dibuat langsung dengan SVG -->
+    <svg class="anime" viewBox="0 0 360 430"
+         xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-label="Ilustrasi karakter anime dewasa">
+      <defs>
+        <linearGradient id="bg" x2="1" y2="1">
+          <stop stop-color="#37105d"/>
+          <stop offset="1" stop-color="#ed419f"/>
+        </linearGradient>
+        <linearGradient id="hair" x2="1" y2="1">
+          <stop stop-color="#ff76d0"/>
+          <stop offset="1" stop-color="#6421a3"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="360" height="430" rx="20" fill="url(#bg)"/>
+
+      <circle cx="180" cy="170" r="120"
+              fill="#ffc9f2" opacity=".12"/>
+
+      <path d="M65 430 Q65 320 130 300
+               L230 300 Q295 320 300 430"
+            fill="#24204d"/>
+
+      <path d="M111 170 Q70 30 180 45
+               Q300 25 252 180
+               L245 280 L115 280Z"
+            fill="url(#hair)"/>
+
+      <path d="M124 128 Q120 78 180 77
+               Q235 78 237 137
+               L225 223 Q210 265 180 267
+               Q143 260 131 220Z"
+            fill="#ffd7c7"/>
+
+      <path d="M120 145 Q91 65 166 50
+               Q244 36 258 111
+               L238 155 L220 105
+               L180 130 L141 107Z"
+            fill="url(#hair)"/>
+
+      <path d="M143 161 Q158 146 173 162"
+            stroke="#57254f" stroke-width="6"
+            fill="none" stroke-linecap="round"/>
+
+      <path d="M190 162 Q205 146 220 161"
+            stroke="#57254f" stroke-width="6"
+            fill="none" stroke-linecap="round"/>
+
+      <ellipse cx="158" cy="178" rx="10" ry="13"
+               fill="#6c36a5"/>
+      <ellipse cx="205" cy="178" rx="10" ry="13"
+               fill="#6c36a5"/>
+
+      <circle cx="161" cy="174" r="3" fill="white"/>
+      <circle cx="208" cy="174" r="3" fill="white"/>
+
+      <path d="M173 205 Q182 214 192 204"
+            stroke="#c45b79" stroke-width="3"
+            fill="none" stroke-linecap="round"/>
+
+      <path d="M143 230 L133 285 L180 322
+               L227 285 L217 230"
+            fill="#ffd7c7"/>
+
+      <path d="M119 286 L91 310 L111 430
+               L249 430 L269 310 L241 286
+               L220 319 L180 339 L140 319Z"
+            fill="#24204d"/>
+
+      <path d="M140 319 L180 339 L220 319"
+            stroke="#ff77c9" stroke-width="5"
+            fill="none"/>
+
+      <path d="M119 144 Q88 194 110 265"
+            stroke="#ff9ce0" stroke-width="12"
+            fill="none" stroke-linecap="round"/>
+
+      <path d="M244 133 Q278 211 247 276"
+            stroke="#ff9ce0" stroke-width="12"
+            fill="none" stroke-linecap="round"/>
+
+      <text x="180" y="390" fill="white"
+            font-size="19" font-weight="bold"
+            text-anchor="middle">SURPRISE! ♡</text>
+    </svg>
+
+    <p>✨ Selamat datang di Anime Surprise ✨</p>
+    <p id="status">Mencoba memutar audio...</p>
+
+    <audio id="audio" preload="auto">
+      <source
+        src="https://mp3tourl.com/audio/1791708116822-f1020f65-6ff7-497f-8984-164a89f6749d.mp3"
+        type="audio/mpeg">
+    </audio>
+  </main>
 
   <script>
     const audio = document.getElementById("audio");
+    const status = document.getElementById("status");
+
     audio.volume = 1;
 
-    window.addEventListener("load", () => {
-      audio.play().catch(() => {
-        // Browser mungkin memblokir autoplay bersuara.
-      });
+    window.addEventListener("load", async () => {
+      try {
+        await audio.play();
+        status.textContent = "Audio sedang diputar 🔊";
+      } catch (error) {
+        status.textContent =
+          "Browser memblokir autoplay. Gunakan kontrol audio browser untuk memulai.";
+        audio.controls = true;
+      }
     });
   </script>
 </body>
